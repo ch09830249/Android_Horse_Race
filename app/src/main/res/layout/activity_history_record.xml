@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".History_record"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="40sp"
+        android:text="History Records"
+        android:gravity="center">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/field_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EVENT ID"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="#FFFF6F"/>
+        <TextView
+            android:id="@+id/field_horse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="投注馬匹"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="#FF9224"/>
+        <TextView
+            android:id="@+id/field_betmoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="下注金額"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="#FFFF6F"/>
+        <TextView
+            android:id="@+id/field_winner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="獲勝馬匹"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="#FF9224"/>
+        <TextView
+            android:id="@+id/field_earn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="獎金"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="#FFFF6F"/>
+        <TextView
+            android:id="@+id/field_capital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="賭金餘額"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="#FF9224"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/Lv_main"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+    </ListView>
+
+    <Button
+        android:id="@+id/back_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to the Game"/>
+
+
+</LinearLayout>
