@@ -25,10 +25,6 @@ var flag_banana_finish: Boolean = true
 var flag_orange_finish: Boolean = true
 var flag_pineapple_finish: Boolean = true
 
-//美金對台幣匯率
-//var connect_result: String = ""
-//var currency: Double = 0.0
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,17 +48,11 @@ class MainActivity : AppCompatActivity() {
     private val DB_NAME: String = "MyRecord.db"
     private val TABLE_NAME = "History"
     private val DB_VERSION = 1
-    //lateinit var arrayList: ArrayList<HashMap<String, String>> //取得所有資料
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //getCurrency()
-
 
         //建立資料庫
         mDBHelper = Record(this, name = DB_NAME, null, version = DB_VERSION, table_name = TABLE_NAME) //初始化資料庫
@@ -85,19 +75,10 @@ class MainActivity : AppCompatActivity() {
         ratio4 = findViewById(R.id.ratio4)
 
 
-        //比賽馬匹
-        var horse1: horse = horse("apple", Progbar1)
-        var horse2: horse = horse("banana", Progbar2)
-        var horse3: horse = horse("orange", Progbar3)
-        var horse4: horse = horse("pineapple", Progbar4)
-
-
         //Start Game Button
         mBtnButton = findViewById(R.id.button1)
         mBtnButton.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
-
-                //Log.d("  onClick = " , (Thread.currentThread().id.toString()));
 
                 //遊戲開始前(check: 1.有沒有輸入金額  2.金額有沒有大於10 3.遊戲是否進行中  4.錢夠不夠)
 
@@ -139,7 +120,8 @@ class MainActivity : AppCompatActivity() {
                 bethorsename = RadioBtm.text.toString()
 
                 //Start Game
-                    start_game(horse1, horse2, horse3, horse4)
+                //比賽馬匹
+                start_game()
             }
         })
 
@@ -222,40 +204,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //連線
-    /*fun getCurrency() {
-        //政府開放資料網址
-        val currenciesDataUrl =
-            "https://quality.data.gov.tw/dq_download_json.php?nid=11339&md5_url=c27e986d791b4754f962dae762edf38c"
-
-        //Part 1: 宣告 OkHttpClient
-        val okHttpClient = OkHttpClient().newBuilder().build()
-
-        //Part 2: 宣告 Request，要求要連到指定網址
-        val request: Request = Request.Builder().url(currenciesDataUrl).get().build()
-
-        //Part 3: 宣告 Call
-        val call = okHttpClient.newCall(request)
-
-        //執行 Call 連線後，採用 enqueue 非同步方式，獲取到回應的結果資料
-        call.enqueue(object : Callback {
-            override fun onFailure(call: Call, e: java.io.IOException) {
-                Log.d("Kenny", "onFailure: $e")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                Log.d("Kenny", "onResponse: ${response.body?.string()}")
-            }
-        })
-    }*/
-
 
     //遊戲開始的thread
-    fun start_game(horse1: horse, horse2: horse, horse3: horse, horse4: horse){
+    fun start_game(){
         flag_apple_finish = false
         flag_banana_finish = false
         flag_orange_finish = false
         flag_pineapple_finish = false
+        var horse1: horse = horse("apple", Progbar1)
+        var horse2: horse = horse("banana", Progbar2)
+        var horse3: horse = horse("orange", Progbar3)
+        var horse4: horse = horse("pineapple", Progbar4)
         horse1.start()
         horse2.start()
         horse3.start()
@@ -268,14 +227,14 @@ class MainActivity : AppCompatActivity() {
         val gain: Double = 0.1
         fun horsewin(){
             if((ratio-gain)>=2) ratio = ratio-gain
-            println("$horsename: 是贏家")
-            println("${horsename}賠率: $ratio\n")
+            //println("$horsename: 是贏家")
+            //println("${horsename}賠率: $ratio\n")
         }
 
         fun horselose(){
             if((ratio+gain)<=5) ratio = ratio+gain
-            println("$horsename: 是輸家")
-            println("${horsename}賠率: $ratio\n")
+            //println("$horsename: 是輸家")
+            //println("${horsename}賠率: $ratio\n")
         }
 
         fun update_ratio_flag(){
