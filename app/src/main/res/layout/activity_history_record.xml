@@ -26,8 +26,8 @@
         android:gravity="center">
         <TextView
             android:id="@+id/field_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="EVENT ID"
             android:textColor="@android:color/black"
@@ -36,8 +36,8 @@
             android:background="#FFFF6F"/>
         <TextView
             android:id="@+id/field_horse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="投注馬匹"
             android:textColor="@android:color/black"
@@ -46,18 +46,18 @@
             android:background="#FF9224"/>
         <TextView
             android:id="@+id/field_betmoney"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="下注金額"
+            android:text="下注金額(美金)"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:gravity="center"
             android:background="#FFFF6F"/>
         <TextView
             android:id="@+id/field_winner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="獲勝馬匹"
             android:textColor="@android:color/black"
@@ -66,18 +66,18 @@
             android:background="#FF9224"/>
         <TextView
             android:id="@+id/field_earn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="獎金"
+            android:text="獎金(賭金x賠率x匯率)"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:gravity="center"
             android:background="#FFFF6F"/>
         <TextView
             android:id="@+id/field_capital"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="賭金餘額"
             android:textColor="@android:color/black"

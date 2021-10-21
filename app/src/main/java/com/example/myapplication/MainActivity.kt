@@ -6,8 +6,11 @@ import android.view.View
 import android.widget.*
 import java.lang.Exception
 import android.content.Intent
-import okhttp3.*
-
+import android.util.Log
+import com.google.gson.Gson
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
 
 
 var winner: String? = null                     //獲勝馬匹
@@ -18,12 +21,13 @@ var ratio_apple: Double = 2.0
 var ratio_banana: Double = 2.0
 var ratio_orange: Double = 2.0
 var ratio_pineapple: Double = 2.0
-var earn: Int? = null                           //獎金
+var earn: Int? = null                           //獎金 (這裡已經乘上匯率所以是台幣)
 var mDBHelper: Record? = null                   //資料庫的參照(Record class)
 var flag_apple_finish: Boolean = true
 var flag_banana_finish: Boolean = true
 var flag_orange_finish: Boolean = true
 var flag_pineapple_finish: Boolean = true
+var currency: Double = 0.0                      //當天匯率
 
 
 
@@ -74,6 +78,39 @@ class MainActivity : AppCompatActivity() {
         ratio3 = findViewById(R.id.ratio3)
         ratio4 = findViewById(R.id.ratio4)
 
+        //上網抓最新的美金比台幣匯率
+        //匯率open api 資料網址
+        val CurrencyURL ="https://tw.rter.info/capi.php"
+        //Part 1: 宣告 OkHttpClient
+        val client = OkHttpClient()
+        //Part 2: 宣告 Request，要求要連到指定網址
+        val request = Request.Builder().url(CurrencyURL).build()
+        //Part 3: 宣告 Call  執行 Call 連線後，採用 enqueue 非同步方式，獲取到回應的結果資料
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                Log.d("HKT", e.toString())
+            }
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                val whole_exchange_result = response.body?.string()
+                //抓出屬於USDTWD
+                val list1 = whole_exchange_result?.split("}, ")
+                var result = ""
+                for (item in list1!!){
+                    if(item.startsWith("\"USDTWD\":")){  //找到開頭有"USDTWD"開頭的字串
+                        result = item
+                    }
+                }
+                result = result.substring(10)+"}"   //切字串 {"Exrate": 27.885501, "UTC": "2021-10-21 05:59:59"} 的樣式(USDTWD的)
+                //Log.d("Kenny", "string: " + result)
+                val posts: Post? = Gson().fromJson(result, Post::class.java)
+                currency = posts!!.Exrate
+                val tv_currency: TextView = findViewById(R.id.txt_ratio4)
+                tv_currency.text = currency.toString()
+                //Log.d("Kenny", "string: " + posts!!.toString())
+                //Log.d("Kenny", "string: " + posts!!.Exrate)
+                //Log.d("Kenny", "string: " + posts!!.UTC)
+            }
+        })
 
         //Start Game Button
         mBtnButton = findViewById(R.id.button1)
@@ -82,7 +119,7 @@ class MainActivity : AppCompatActivity() {
 
                 //遊戲開始前(check: 1.有沒有輸入金額  2.金額有沒有大於10 3.遊戲是否進行中  4.錢夠不夠)
 
-                var previous_betmonney: Int? = betmoney //先把錢一把的賭金存起來, 因為下面會改到
+                val previous_betmonney: Int? = betmoney //先把錢一把的賭金存起來, 因為下面會改到
 
                 //取下注金額: betmoney
                 try{
@@ -116,7 +153,7 @@ class MainActivity : AppCompatActivity() {
 
                 //取下注馬匹: bethorse
                 RadioB1 = findViewById(R.id.rg1)
-                var RadioBtm: RadioButton = findViewById(RadioB1.getCheckedRadioButtonId())
+                val RadioBtm: RadioButton = findViewById(RadioB1.getCheckedRadioButtonId())
                 bethorsename = RadioBtm.text.toString()
 
                 //Start Game
@@ -186,7 +223,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     //不斷更新資訊的thread
     private val runnable = Runnable {
         try {
@@ -211,10 +247,10 @@ class MainActivity : AppCompatActivity() {
         flag_banana_finish = false
         flag_orange_finish = false
         flag_pineapple_finish = false
-        var horse1: horse = horse("apple", Progbar1)
-        var horse2: horse = horse("banana", Progbar2)
-        var horse3: horse = horse("orange", Progbar3)
-        var horse4: horse = horse("pineapple", Progbar4)
+        val horse1: horse = horse("apple", Progbar1)
+        val horse2: horse = horse("banana", Progbar2)
+        val horse3: horse = horse("orange", Progbar3)
+        val horse4: horse = horse("pineapple", Progbar4)
         horse1.start()
         horse2.start()
         horse3.start()
@@ -223,7 +259,13 @@ class MainActivity : AppCompatActivity() {
 
 
     //Class used in the game
-    class horse(var horsename: String, var Pgrbar: ProgressBar, var mile: Int = 0, var ratio: Double = 2.0) : Thread(){
+    class horse(var horsename: String, var Pgrbar: ProgressBar, var mile: Int = 0) : Thread(){
+        var ratio = when(horsename){
+            "apple"-> ratio_apple
+            "banana" -> ratio_banana
+            "orange" -> ratio_orange
+            else -> ratio_pineapple
+        }
         val gain: Double = 0.1
         fun horsewin(){
             if((ratio-gain)>=2) ratio = ratio-gain
@@ -258,12 +300,12 @@ class MainActivity : AppCompatActivity() {
                 //winner
                 winner = horsename
                 if(winner == bethorsename){
-                    earn = ((betmoney!!.toDouble())*ratio).toInt()
+                    earn = ((betmoney!!.toDouble())*ratio* currency).toInt()
                     capital = capital + earn!!  //到時候要乘上匯率
                 }
                 else{
                     earn = 0
-                    capital = capital - betmoney!!  //到時候要乘上匯率
+                    capital = capital - (betmoney!!.toDouble()* currency).toInt()  //到時候要乘上匯率
                 }
                 horsewin()
             }
