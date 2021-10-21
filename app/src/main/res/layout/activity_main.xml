@@ -39,7 +39,7 @@
             android:text="banana"
             android:textSize="20dp"
             android:gravity="center"
-            android:textColor="#E1E100">
+            android:textColor="	#A6A600">
         </TextView>
         <ProgressBar
             android:id="@+id/progressBar2"
@@ -100,7 +100,7 @@
             android:id="@+id/txt1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="賭金餘額(台幣)"
+            android:text="賭金餘額"
             android:textSize="20dp"
             android:layout_weight="1"
             android:padding="10dp"
@@ -170,8 +170,9 @@
             android:text="10000"
             android:textSize="20dp"
             android:layout_weight="1"
-            android:padding="10dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="#7E3D76">
         </TextView>
         <EditText
             android:id="@+id/edittext"
@@ -179,12 +180,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text=""
-            android:padding="10dp"
             android:gravity="center"
             android:hint="上限10美元"
+            android:textColorHint="#B9B973"
+            android:textColor="#000000"
             android:inputType="number"
             android:background="@drawable/bg_square"
-            android:maxLines="1">
+            android:maxLines="1"
+            android:layout_margin="5dp">
         </EditText>
     </LinearLayout>
 
@@ -238,7 +241,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="apple:"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:textColor="#7E3D76">
                 </TextView>
                 <TextView
                     android:id="@+id/ratio1"
@@ -258,7 +262,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="banana:"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:textColor="#7E3D76">
                 </TextView>
                 <TextView
                     android:id="@+id/ratio2"
@@ -266,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="2"
-                    android:textColor="#E1E100">
+                    android:textColor="#A6A600">
                 </TextView>
             </LinearLayout>
             <LinearLayout
@@ -278,7 +283,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="orange:"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:textColor="#7E3D76">
                 </TextView>
                 <TextView
                     android:id="@+id/ratio3"
@@ -298,7 +304,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="pineapple:"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:textColor="#7E3D76">
                 </TextView>
                 <TextView
                     android:id="@+id/ratio4"
@@ -324,25 +331,28 @@
                 android:text="apple"
                 android:checked="true"
                 android:layout_weight="1"
-                />
+                android:textColor="#7E3D76"/>
             <RadioButton
                 android:id="@+id/rdb2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="banana"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="#7E3D76"/>
             <RadioButton
                 android:id="@+id/rdb3"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="orange"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="#7E3D76"/>
             <RadioButton
                 android:id="@+id/rdb4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="pineapple"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="#7E3D76"/>
         </RadioGroup>
 
     </LinearLayout>
@@ -353,10 +363,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_style"
         android:text="Start Game"
-        android:textColor="#000000"
-        android:layout_margin="5dp"
-        android:textSize="20sp"
-        android:textAllCaps="false" />
+        android:textColor="#CE000000"
+        android:layout_margin="2dp"
+        android:textSize="18sp"
+        android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/button2"
@@ -365,8 +375,8 @@
         android:background="@drawable/btn_style"
         android:text="History Record"
         android:textColor="#000000"
-        android:layout_margin="5dp"
-        android:textSize="20sp"
+        android:layout_margin="2dp"
+        android:textSize="18sp"
         android:textAllCaps="false" />
     <Button
         android:id="@+id/button3"
@@ -375,8 +385,18 @@
         android:background="@drawable/btn_style"
         android:text="Reset"
         android:textColor="#000000"
-        android:layout_margin="5dp"
-        android:textSize="20sp"
+        android:layout_margin="2dp"
+        android:textSize="18sp"
+        android:textAllCaps="false" />
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_style"
+        android:text="Game Over"
+        android:textColor="#000000"
+        android:layout_margin="2dp"
+        android:textSize="18sp"
         android:textAllCaps="false" />
 
 

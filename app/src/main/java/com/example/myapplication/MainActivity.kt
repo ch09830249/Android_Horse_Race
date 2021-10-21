@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,10 +9,12 @@ import android.widget.*
 import java.lang.Exception
 import android.content.Intent
 import android.util.Log
+import android.view.KeyEvent
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+
 
 
 var winner: String? = null                     //獲勝馬匹
@@ -36,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mBtnButton: Button
     private lateinit var mBtn_historyButton: Button
     private lateinit var mBtn_resetButton: Button
+    private lateinit var mBtn_Game_Over_Button: Button
     private lateinit var Text1: EditText
     private lateinit var Text2: TextView
     private lateinit var ratio1: TextView
@@ -57,6 +62,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         //建立資料庫
         mDBHelper = Record(this, name = DB_NAME, null, version = DB_VERSION, table_name = TABLE_NAME) //初始化資料庫
@@ -127,20 +134,22 @@ class MainActivity : AppCompatActivity() {
                     betmoney = Text1.text.toString().trim().toInt()
                 }catch (e: Exception){
                     betmoney = previous_betmonney
-                    Toast.makeText(this@MainActivity, "請輸入下注金額!!!", Toast.LENGTH_SHORT).show()
+                    ToastUtil().showToast(this@MainActivity, "請輸入下注金額!!!")
+                    //Toast.makeText(this@MainActivity, "請輸入下注金額!!!", Toast.LENGTH_SHORT).show()
                     return
                 }
 
                 //避免按好幾次
                 if(flag_apple_finish!=true || flag_banana_finish!=true || flag_orange_finish!=true || flag_pineapple_finish!=true || betmoney!! > 10 || capital < betmoney!! || betmoney==0){
                     if(flag_apple_finish!=true || flag_banana_finish!=true || flag_orange_finish!=true || flag_pineapple_finish!=true)
-                        Toast.makeText(this@MainActivity, "遊戲進行中!!!", Toast.LENGTH_SHORT).show()
+                        ToastUtil().showToast(this@MainActivity, "遊戲進行中!!!")
+                        //Toast.makeText(this@MainActivity, "遊戲進行中!!!", Toast.LENGTH_SHORT).show()
                     if(capital < betmoney!!)
-                        Toast.makeText(this@MainActivity, "錢不夠玩!!!", Toast.LENGTH_SHORT).show()
+                        ToastUtil().showToast(this@MainActivity, "錢不夠完!!!")
                     if(betmoney!!>10)
-                        Toast.makeText(this@MainActivity, "超過10元", Toast.LENGTH_SHORT).show()
+                        ToastUtil().showToast(this@MainActivity, "超過10元!!!")
                     if(betmoney==0)
-                        Toast.makeText(this@MainActivity, "請輸入下注金額", Toast.LENGTH_SHORT).show()
+                        ToastUtil().showToast(this@MainActivity, "請輸入下注金額!!!")
                     betmoney = previous_betmonney //還原成前一次的賭金
                     return
                 }
@@ -159,6 +168,8 @@ class MainActivity : AppCompatActivity() {
                 //Start Game
                 //比賽馬匹
                 start_game()
+
+
             }
         })
 
@@ -170,7 +181,7 @@ class MainActivity : AppCompatActivity() {
 
                 //避免按好幾次
                 if(flag_apple_finish!=true || flag_banana_finish!=true || flag_orange_finish!=true || flag_pineapple_finish!=true){
-                    Toast.makeText(this@MainActivity, "遊戲進行中!!!", Toast.LENGTH_SHORT).show()
+                    ToastUtil().showToast(this@MainActivity, "遊戲進行中!!!")
                     return
                 }
 
@@ -179,8 +190,7 @@ class MainActivity : AppCompatActivity() {
                     mDBHelper!!.addData(bethorse = bethorsename, betmoney = betmoney, winner = winner, earn = earn, capital = capital)
                     winner = null
                 }
-
-                Toast.makeText(this@MainActivity, "查詢歷史紀錄!!!", Toast.LENGTH_SHORT).show()
+                ToastUtil().showToast(this@MainActivity, "查詢歷史紀錄!!!")
 
                 //跳轉到History_record頁面
                 val intent = Intent()
@@ -197,11 +207,10 @@ class MainActivity : AppCompatActivity() {
 
                 //避免按好幾次
                 if(flag_apple_finish!=true || flag_banana_finish!=true || flag_orange_finish!=true || flag_pineapple_finish!=true){
-                    Toast.makeText(this@MainActivity, "遊戲進行中!!!", Toast.LENGTH_SHORT).show()
+                    ToastUtil().showToast(this@MainActivity, "遊戲進行中!!!")
                     return
                 }
-
-                Toast.makeText(this@MainActivity, "重置遊戲!!!", Toast.LENGTH_SHORT).show()
+                ToastUtil().showToast(this@MainActivity, "重置遊戲!!!")
                 capital = 10000
                 winner = null
                 betmoney = null
@@ -220,6 +229,31 @@ class MainActivity : AppCompatActivity() {
         Text2 = findViewById(R.id.txt3)
         val t: Thread = Thread(runnable)
         t.start()
+
+        mBtn_Game_Over_Button = findViewById(R.id.button4)
+        mBtn_Game_Over_Button.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                //避免按好幾次
+                if(flag_apple_finish!=true || flag_banana_finish!=true || flag_orange_finish!=true || flag_pineapple_finish!=true){
+                    ToastUtil().showToast(this@MainActivity, "遊戲進行中!!!")
+                    return
+                }
+                ToastUtil().showToast(this@MainActivity, "遊戲結束!!!")
+                capital = 10000
+                winner = null
+                betmoney = null
+                bethorsename = null
+                ratio_apple = 2.0
+                ratio_banana = 2.0
+                ratio_orange = 2.0
+                ratio_pineapple = 2.0
+                //重置table
+                mDBHelper!!.drop_table()
+                mDBHelper!!.checkTable()
+                finish()
+            }
+        })
+
     }
 
 
@@ -229,11 +263,11 @@ class MainActivity : AppCompatActivity() {
             while (true) {
                 Thread.sleep(500)
                 runOnUiThread {
-                    Text2.text = capital.toString()
-                    ratio1.text = ratio_apple.toString()
-                    ratio2.text = ratio_banana.toString()
-                    ratio3.text = ratio_orange.toString()
-                    ratio4.text = ratio_pineapple.toString()
+                    Text2.text = "新台幣: "+capital.toString()
+                    ratio1.text = String.format("%.1f", ratio_apple)
+                    ratio2.text = String.format("%.1f", ratio_banana)
+                    ratio3.text = String.format("%.1f", ratio_orange)
+                    ratio4.text = String.format("%.1f", ratio_pineapple)
                 }
             }
         } catch (e: InterruptedException) {
