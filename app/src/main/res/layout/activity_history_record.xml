@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".History_record"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFED97">
 
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
         android:padding="10dp"
-        android:textSize="40sp"
         android:text="History Records"
-        android:gravity="center">
-    </TextView>
+        android:textSize="40sp"
+        android:textColor="#000000"
+        android:background="#46A3FF"/>
 
     <LinearLayout
+        android:id="@+id/header_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_below="@id/tv_title">
         <TextView
             android:id="@+id/field_id"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="EVENT ID"
+            android:layout_weight="0.5"
+            android:text="ID"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:gravity="center"
-            android:background="#FFFF6F"/>
+            android:background="#FFFF6F"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/field_horse"
             android:layout_width="0dp"
@@ -43,60 +49,107 @@
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:gravity="center"
-            android:background="#FF9224"/>
-        <TextView
-            android:id="@+id/field_betmoney"
+            android:background="#FF9224"
+            android:textStyle="bold"/>
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="下注金額(美金)"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:background="#FFFF6F"/>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/field_betmoney"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="下注金額"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="#FFFF6F"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/field_betmoney2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="(美金)"
+                android:textColor="@android:color/black"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:background="#FFFF6F"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/field_winner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#FF9224"
+            android:gravity="center"
             android:text="獲勝馬匹"
             android:textColor="@android:color/black"
             android:textSize="15sp"
-            android:gravity="center"
-            android:background="#FF9224"/>
-        <TextView
-            android:id="@+id/field_earn"
+            android:textStyle="bold"/>
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="獎金(賭金x賠率x匯率)"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:gravity="center"
-            android:background="#FFFF6F"/>
+            android:orientation="vertical"
+            android:layout_weight="1.2">
+
+            <TextView
+                android:id="@+id/field_earn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFF6F"
+                android:gravity="center"
+                android:text="獎金(台幣)"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/field_earn2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFF6F"
+                android:gravity="center"
+                android:text="(賭金x賠率x匯率)"
+                android:textColor="@android:color/black"
+                android:textSize="8sp" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/field_capital"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#FF9224"
+            android:gravity="center"
             android:text="賭金餘額"
             android:textColor="@android:color/black"
             android:textSize="15sp"
-            android:gravity="center"
-            android:background="#FF9224"/>
+            android:textStyle="bold"/>
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/Lv_main"
-        android:layout_width="match_parent"
-        android:layout_height="420dp">
-    </ListView>
 
     <Button
         android:id="@+id/back_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back to the Game"/>
+        android:layout_alignParentBottom="true"
+        android:text="Back to the Game"
+        android:background="@drawable/btn_style"
+        android:textColor="#CE000000"
+        android:textSize="18sp"/>
+
+    <ListView
+        android:id="@+id/Lv_main"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_above="@id/back_game"
+        android:layout_below="@id/header_row">
+    </ListView>
 
 
-</LinearLayout>
+</RelativeLayout>

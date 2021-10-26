@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,9 +24,9 @@ class History_record : AppCompatActivity() {
 
         //秀出表格(ListView)
         lv_main = findViewById(R.id.Lv_main)
-        var index: Array<String> = arrayOf("ID", "BETHORSE", "BETMONEY", "WINNER", "EARN", "CAPITAL")
+        var from: Array<String> = arrayOf("ID", "BETHORSE", "BETMONEY", "WINNER", "EARN", "CAPITAL")
         var to: IntArray  = intArrayOf(R.id.tv_id, R.id.tv_horse, R.id.tv_betmoney, R.id.tv_winner, R.id.tv_earn, R.id.tv_capital)
-        var adapter: SimpleAdapter = SimpleAdapter(this, arrayList, R.layout.item, index, to)
+        var adapter: SimpleAdapter = SimpleAdapter(this, arrayList, R.layout.item, from, to)
         lv_main.adapter = adapter
 
 
@@ -35,9 +34,10 @@ class History_record : AppCompatActivity() {
         back_game = findViewById(R.id.back_game)
         back_game.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
-                val intent = Intent()
+                /*val intent = Intent()
                 intent.setClass(this@History_record, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(intent)*/
+                finish()
             }
         })
     }

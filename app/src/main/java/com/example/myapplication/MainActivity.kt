@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.*
 import java.lang.Exception
 import android.content.Intent
 import android.util.Log
-import android.view.KeyEvent
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -230,6 +228,8 @@ class MainActivity : AppCompatActivity() {
         val t: Thread = Thread(runnable)
         t.start()
 
+
+        //Game Over
         mBtn_Game_Over_Button = findViewById(R.id.button4)
         mBtn_Game_Over_Button.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {

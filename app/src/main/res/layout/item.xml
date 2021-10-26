@@ -15,59 +15,60 @@
 
         <TextView
             android:id="@+id/tv_id"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:gravity="center"/>
         <TextView
             android:id="@+id/tv_horse"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:gravity="center"
             android:background="#46A3FF"/>
         <TextView
             android:id="@+id/tv_betmoney"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:gravity="center"/>
         <TextView
             android:id="@+id/tv_winner"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:gravity="center"
             android:background="#46A3FF"/>
+
         <TextView
             android:id="@+id/tv_earn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_weight="1.2"
+            android:gravity="center"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
-            android:gravity="center"/>
+            android:textSize="13sp" />
         <TextView
             android:id="@+id/tv_capital"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:gravity="center"
             android:background="#46A3FF"/>
 
